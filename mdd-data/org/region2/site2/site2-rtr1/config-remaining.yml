@@ -1,0 +1,298 @@
+mdd_data:
+  config:
+    tailf-ned-cisco-ios:tailfned:
+      police: cirmode
+    tailf-ned-cisco-ios:version: '17.3'
+    tailf-ned-cisco-ios:service:
+      conf: {}
+      timestamps:
+        debug:
+          datetime: {}
+        log:
+          datetime: {}
+      call-home:
+      - null
+    tailf-ned-cisco-ios:login:
+      on-success: {}
+    tailf-ned-cisco-ios:platform:
+      console: serial
+      punt-keepalive:
+        disable-kernel-core: true
+      qfp:
+        utilization:
+          monitor:
+            load: 80
+    tailf-ned-cisco-ios:vrf:
+      definition:
+      - name: Mgmt-intf
+      - name: internal_1
+    tailf-ned-cisco-ios:clock:
+      timezone: {}
+    tailf-ned-cisco-ios:call-home:
+      contact-email-addr: sch-smart-licensing@cisco.com
+      profile:
+      - name: CiscoTAC-1
+        active: true
+        reporting:
+          smart-licensing-data: true
+        destination:
+          transport-method:
+            http:
+            - null
+    tailf-ned-cisco-ios:ip:
+      gratuitous-arps-conf: {}
+      bootp:
+        server: true
+      domain:
+        lookup-conf:
+          lookup: true
+      name-server: {}
+      ssh:
+        server:
+          algorithm: {}
+        client:
+          algorithm:
+            encryption:
+            - aes128-ctr
+            - aes192-ctr
+            - aes256-ctr
+      forward-protocol:
+        nd:
+        - null
+      http: {}
+      bgp-community:
+        new-format:
+        - null
+      extcommunity-list:
+        standard: {}
+    tailf-ned-cisco-ios:subscriber:
+      templating: true
+    tailf-ned-cisco-ios:multilink:
+      bundle-name: authenticated
+    tailf-ned-cisco-ios:username:
+    - name: VALUE_SPECIFIED_IN_NO_LOG_PARAMETER
+      privilege: 15
+      secret:
+        type: '9'
+        secret: $9$XQtTQLxiQIkN9U$BqToRAWAtkXLXEbNoVXchKiuI95dv0h.NK5i34h/XdI
+    tailf-ned-cisco-ios:redundancy: {}
+    tailf-ned-cisco-ios:crypto:
+      pki:
+        trustpoint:
+        - id: SLA-TrustPoint
+          enrollment:
+            pkcs12:
+            - null
+          revocation-check:
+          - crl
+        - id: TP-self-signed-1052534453
+          enrollment:
+            selfsigned:
+            - null
+          subject-name: cn=IOS-Self-Signed-Certificate-1052534453
+          revocation-check:
+          - none
+          rsakeypair:
+            key-label: TP-self-signed-1052534453
+        certificate:
+          chain:
+          - name: SLA-TrustPoint
+            certificate:
+            - serial: '01'
+              cert-type: ca
+              cert: "  30820321 30820209 A0030201 02020101 300D0609 2A864886 F70D0101\
+                \ 0B050030 \r\n  32310E30 0C060355 040A1305 43697363 6F312030 1E060355\
+                \ 04031317 43697363 \r\n  6F204C69 63656E73 696E6720 526F6F74 20434130\
+                \ 1E170D31 33303533 30313934 \r\n  3834375A 170D3338 30353330 31393438\
+                \ 34375A30 32310E30 0C060355 040A1305 \r\n  43697363 6F312030 1E060355\
+                \ 04031317 43697363 6F204C69 63656E73 696E6720 \r\n  526F6F74 20434130\
+                \ 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 \r\n  82010A02\
+                \ 82010100 A6BCBD96 131E05F7 145EA72C 2CD686E6 17222EA1 F1EFF64D \r\
+                \n  CBB4C798 212AA147 C655D8D7 9471380D 8711441E 1AAF071A 9CAE6388\
+                \ 8A38E520 \r\n  1C394D78 462EF239 C659F715 B98C0A59 5BBB5CBD 0CFEBEA3\
+                \ 700A8BF7 D8F256EE \r\n  4AA4E80D DB6FD1C9 60B1FD18 FFC69C96 6FA68957\
+                \ A2617DE7 104FDC5F EA2956AC \r\n  7390A3EB 2B5436AD C847A2C5 DAB553EB\
+                \ 69A9A535 58E9F3E3 C0BD23CF 58BD7188 \r\n  68E69491 20F320E7 948E71D7\
+                \ AE3BCC84 F10684C7 4BC8E00F 539BA42B 42C68BB7 \r\n  C7479096 B4CB2D62\
+                \ EA2F505D C7B062A4 6811D95B E8250FC4 5D5D5FB8 8F27D191 \r\n  C55F0D76\
+                \ 61F9A4CD 3D992327 A8BB03BD 4E6D7069 7CBADF8B DF5F4368 95135E44 \r\
+                \n  DFC7C6CF 04DD7FD1 02030100 01A34230 40300E06 03551D0F 0101FF04\
+                \ 04030201 \r\n  06300F06 03551D13 0101FF04 05300301 01FF301D 0603551D\
+                \ 0E041604 1449DC85 \r\n  4B3D31E5 1B3E6A17 606AF333 3D3B4C73 E8300D06\
+                \ 092A8648 86F70D01 010B0500 \r\n  03820101 00507F24 D3932A66 86025D9F\
+                \ E838AE5C 6D4DF6B0 49631C78 240DA905 \r\n  604EDCDE FF4FED2B 77FC460E\
+                \ CD636FDB DD44681E 3A5673AB 9093D3B1 6C9E3D8B \r\n  D98987BF E40CBD9E\
+                \ 1AECA0C2 2189BB5C 8FA85686 CD98B646 5575B146 8DFC66A8 \r\n  467A3DF4\
+                \ 4D565700 6ADF0F0D CF835015 3C04FF7C 21E878AC 11BA9CD2 55A9232C \r\
+                \n  7CA7B7E6 C1AF74F6 152E99B7 B1FCF9BB E973DE7F 5BDDEB86 C71E3B49\
+                \ 1765308B \r\n  5FB0DA06 B92AFE7F 494E8A9E 07B85737 F3A58BE1 1A48A229\
+                \ C37C1E69 39F08678 \r\n  80DDCD16 D6BACECA EEBC7CF9 8428787B 35202CDC\
+                \ 60E4616A B623CDBD 230E3AFB \r\n  418616A9 4093E049 4D10AB75 27E86F73\
+                \ 932E35B5 8862FDAE 0275156F 719BB2F0 \r\n  D697DF7F 28\r\n"
+          - name: TP-self-signed-1052534453
+            certificate:
+            - serial: '01'
+              cert-type: self-signed
+              cert: "  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101\
+                \ 05050030 \r\n  31312F30 2D060355 04031326 494F532D 53656C66 2D536967\
+                \ 6E65642D 43657274 \r\n  69666963 6174652D 31303532 35333434 3533301E\
+                \ 170D3233 30333133 32333038 \r\n  33315A17 0D333330 33313232 33303833\
+                \ 315A3031 312F302D 06035504 03132649 \r\n  4F532D53 656C662D 5369676E\
+                \ 65642D43 65727469 66696361 74652D31 30353235 \r\n  33343435 33308201\
+                \ 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 \r\n  0A028201\
+                \ 0100A0C3 36CE55BD D3DD8828 5F754F11 8A4DD435 A9FD51C7 DD63F01E \r\
+                \n  DD2BA97B E0DAD66E 78F50CBD 76C85794 C15C0AA9 61E6CB90 6801556A\
+                \ EF509029 \r\n  C9602F68 C873C8E5 AB059826 6816751B 31370801 D257A9D9\
+                \ CA5E4481 16F2353C \r\n  B5D0448F 274E1B04 365E347B C7A7F5CE ED3A5A9E\
+                \ D3BF251C 0063F2F9 AB26A6CB \r\n  223F3D5E DF1E4185 58C6D97B 309825D3\
+                \ 0500CA6D 18FFFA49 495D4C24 9379F138 \r\n  B2C3FC43 E8A9D6A8 35B51ED5\
+                \ 2CB75B6A 714CCED4 ACFE4684 F8FE9D5F 03B71B34 \r\n  0579A0ED 0D8B5ED4\
+                \ 635C28FC E8117E05 3BAA4C61 20CC5B55 0A0659AA CF39C33D \r\n  8781782D\
+                \ B1F2E305 47C99D2B 6959BA82 61280879 55974DC5 B035148C 7B59699D \r\
+                \n  2C7A4134 78D70203 010001A3 53305130 0F060355 1D130101 FF040530\
+                \ 030101FF \r\n  301F0603 551D2304 18301680 1488AB43 59A96894 277649E7\
+                \ 3EDFEC7F 841A72CF \r\n  1A301D06 03551D0E 04160414 88AB4359 A9689427\
+                \ 7649E73E DFEC7F84 1A72CF1A \r\n  300D0609 2A864886 F70D0101 05050003\
+                \ 82010100 8637CCA9 8A6B3AB6 E629DCA6 \r\n  15AF7BEB E77EDC9B 5C8326BC\
+                \ 2F40B64D 0382788E 1645FF53 91DA8AAC 15969C94 \r\n  B9636073 921784EC\
+                \ 19985798 B5C832C1 83B87215 EDA7108E 1AE0D8A4 8FC70FFA \r\n  3B54BD6F\
+                \ 1DACA606 C6320705 D5C027EA E788AE50 9A0C89C3 FDB09F94 69C4DC80 \r\
+                \n  66E9E8AD E90FCC8D 5ED28718 78B58FC0 942F5DBA F35EE21A 105410BF\
+                \ 389E1825 \r\n  DEEB2AED 34925A1A 241ECEC9 7274DC7D D8FF51F5 2EDAD681\
+                \ 76D29115 0DF9AF7B \r\n  FB0C5DAB 4707A81B CF6225D5 2EADD83A 612057AC\
+                \ 4195FCBF 222EF1B1 61F473F7 \r\n  3F33DF59 E96CDEAC 3E4CC853 FF9D5237\
+                \ 353723DD BD551F88 97413B85 7159B388 \r\n  C13DBD3D 6B4C13E9 3500C0B3\
+                \ F09C21F1 6C28038B\r\n"
+    tailf-ned-cisco-ios:interface:
+      Loopback:
+      - name: '0'
+        vrf:
+          forwarding: internal_1
+        ip:
+          address: {}
+      - name: '100'
+        ip:
+          address: {}
+      GigabitEthernet:
+      - name: '1'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        vrf:
+          forwarding: Mgmt-intf
+        ip:
+          address:
+            dhcp: {}
+      - name: '2'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          address: {}
+      - name: '3'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+      - name: '3.10'
+        vrf:
+          forwarding: internal_1
+        ip:
+          address: {}
+      - name: '4'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+      - name: '5'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+      - name: '6'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+      - name: '7'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+      - name: '8'
+        negotiation: {}
+        mop:
+          xenabled: false
+          sysid: false
+        ip:
+          no-address:
+            address: false
+    tailf-ned-cisco-ios:banner: {}
+    tailf-ned-cisco-ios:control-plane: {}
+    tailf-ned-cisco-ios:line:
+      console:
+      - first: '0'
+        stopbits: '1'
+      vty:
+      - first: 0
+        last: 4
+        login:
+          local:
+          - null
+        transport:
+          input:
+          - ssh
+    tailf-ned-cisco-ios:logging:
+      buffered: {}
+      monitor: {}
+      facility: syslog
+    tailf-ned-cisco-ios:spanning-tree:
+      extend:
+        system-id:
+        - null
+    tailf-ned-cisco-ios:diagnostic:
+      bootup:
+        level: minimal
+    tailf-ned-cisco-ios:mpls:
+      ip: true
+      mpls-ip-conf:
+        ip:
+          propagate-ttl-conf:
+            propagate-ttl: true
+      ldp:
+        discovery:
+          hello:
+            holdtime: 15
+            interval: 5
+        router-id:
+          interface: Loopback100
+    tailf-ned-cisco-ios:router:
+      ospf:
+      - network:
+        - ip: 10.0.0.14
+          mask: 0.0.0.0
+          area: 0
+        - ip: 10.255.255.14
+          mask: 0.0.0.0
+          area: 0
+    tailf-ned-cisco-ios:memory:
+      free:
+        low-watermark:
+          processor: 71489

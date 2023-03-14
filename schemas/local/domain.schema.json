@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "properties": {
+    "openconfig-system:system": {
+      "type": "object",
+      "properties": {
+        "openconfig-system:aaa": {
+          "type": "object",
+          "properties": {
+            "openconfig-system:server-groups": {
+              "type": "object",
+              "properties": {
+                "openconfig-system:server-group": {
+                  "type": "array"
+                }
+              }
+            },
+            "openconfig-system:accounting": {
+              "type": "object"
+            },
+            "openconfig-system:authorization": {
+              "type": "object"
+            },
+            "openconfig-system:authentication": {
+              "type": "object"
+            }
+          }
+        },
+        "openconfig-system:clock": {
+          "type": "object",
+          "properties": {
+            "openconfig-system:config": {
+              "type": "object",
+              "properties": {
+                "openconfig-system:timezone-name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "openconfig-system:config": {
+          "type": "object",
+          "properties": {
+            "openconfig-system:hostname": {
+              "type": "string"
+            },
+            "openconfig-system:login-banner": {
+              "type": "string"
+            },
+            "openconfig-system:motd-banner": {
+              "type": "string"
+            },
+            "openconfig-system:domain-name": {
+              "type": "string",
+              "pattern": "^mdd\\.cisco\\.com$"
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "openconfig-system:system"
+  ]
+}

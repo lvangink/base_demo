@@ -1,2 +1,3 @@
+---
 plugin: cisco.cml.cml_inventory
-group_tags: nso_hosts, awx_hosts, netbox_hosts, network, ios, nxos
+group_tags: nso, awx, netbox, network, ios, nxos
