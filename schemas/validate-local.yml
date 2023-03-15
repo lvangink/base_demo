@@ -1,0 +1,12 @@
+### This is an example of how your validation file should look.
+### This should be copied into your mdd-data directory.
+---
+mdd_tags:
+  - all
+mdd_schemas:
+  - name: banner
+    file: 'local/banner.schema.yml'
+  - name: dns
+    file: 'local/dns.schema.yml'
+  - name: domain
+    file: 'local/domain.schema.json'
