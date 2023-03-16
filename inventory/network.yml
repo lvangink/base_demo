@@ -32,9 +32,9 @@ all:
               hosts:
                 site1-rtr1:
                 site2-rtr1:
-        WAN_routers:
-          hosts:
-            WAN-rtr1:
+#         WAN_routers:
+#           hosts:
+#             WAN-rtr1:
     org:
       children:
         region1:
