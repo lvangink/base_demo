@@ -5,16 +5,19 @@ stages:
   # - init-nso
   - save-rollback
   - validate
-  - update
-  - check
+  - update-dev
+  - update-prod
+  - check-dev
+  - check-prod
   - load-rollback
 
-image: ghcr.io/model-driven-devops/mdd:latest
+image: ghcr.io/model-driven-devops/mdd:1.2.0rc1
 
 variables:
   ANSIBLE_CONFIG: "./ansible.cfg"
   CML_VERIFY_CERT: "false"
   NSO_INSTALL: "true"
+  CML_LAB: $DEV_CML_LAB
 
 # clean:
 #   stage: clean
@@ -73,36 +76,66 @@ validate:
     - ansible-playbook ciscops.mdd.validate
   resource_group: mdd
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web"
+    # - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "api"
+    # - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+    # - if: $CI_PIPELINE_SOURCE == "api"
 
-update:
-  stage: update
+update-dev:
+  stage: update-dev
   script:
     # update devices in case DHCP address changed
     # - ansible-playbook ciscops.mdd.nso_update_devices
     - ansible-playbook ciscops.mdd.update -e dry_run=no
   resource_group: mdd
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web"
+    # - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "api"
+    # - if: $CI_PIPELINE_SOURCE == "api"
 
-check:
-  stage: check
+update-prod:
+  stage: update-prod
+  script:
+    # update devices in case DHCP address changed
+    # - ansible-playbook ciscops.mdd.nso_update_devices
+    - ansible-playbook ciscops.mdd.update -e dry_run=no
+  variables:
+    CML_LAB: $PROD_CML_LAB
+  resource_group: mdd
+  rules:
+    # - if: $CI_PIPELINE_SOURCE == "web"
+    # - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+    # - if: $CI_PIPELINE_SOURCE == "api"
+
+check-dev:
+  stage: check-dev
   script:
     # allow network to converge before running checks
     - sleep 60
     - ansible-playbook ciscops.mdd.check
   resource_group: mdd
   rules:
-    - if: $CI_PIPELINE_SOURCE == "web"
+    # - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    # - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+    # - if: $CI_PIPELINE_SOURCE == "api"
+
+check-prod:
+  stage: check-prod
+  script:
+    # allow network to converge before running checks
+    - sleep 60
+    - ansible-playbook ciscops.mdd.check
+  variables:
+    CML_LAB: $PROD_CML_LAB
+  resource_group: mdd
+  rules:
+    # - if: $CI_PIPELINE_SOURCE == "web"
+    # - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    - if: $CI_PIPELINE_SOURCE == "api"
+    # - if: $CI_PIPELINE_SOURCE == "api"
 
 load-rollback:
   stage: load-rollback
