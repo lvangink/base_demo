@@ -60,9 +60,9 @@ all:
                 hq-pop:
                   tags:
                     - hq_pop
-                WAN-rtr1:
-                  tags:
-                    - WAN_router
+#                 WAN-rtr1:
+#                   tags:
+#                     - WAN_router
             site1:
               hosts:
                 site1-rtr1:
