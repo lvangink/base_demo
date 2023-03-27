@@ -6,14 +6,14 @@ certain envrionment variables to be set. It also assumes you are using Cisco Mod
 NSO and CML can be found by using the following links.
 
 ## NSO
-Installing in Kubernetes
-Installing in CML
-Installing in Docker
-Installing Locally
+Installing in Kubernetes  
+Installing in CML  
+Installing in Docker  
+Installing Locally  
 
 ## CML
-Installing in AWS
-Installing in VMware
+Installing in AWS  
+Installing in VMware  
 
 ## GitLab
 
@@ -27,9 +27,16 @@ Move to the mdd-base directory.
 cd mdd-base
 ```
 
-## Installing Depedancies
-### Python 
+## Installing Dependancies
 
+### Environmental Variables
+The MDD tooling requires several environment variables. The first one required for base execution is:
+```
+export ANSIBLE_PYTHON_INTERPRETER=${VIRTUAL_ENV}/bin/python
+export ANSIBLE_COLLECTIONS_PATH=./
+```
+
+### Python 
 Next, it is highly recommended that you create a virtual environment to make it easier to install the dependencies without conflict:
 ```
 python3 -m venv venv-mdd
@@ -39,6 +46,16 @@ Next, install the Python requirements via pip:
 ```
 pip3 install -r requirements.txt
 ```
+
+### Reactivate Virtual Environment
+Reactivate virtual environment to ensure your shell is using the newly installed ansible.
+```
+deactivate
+```
+```
+. ./venv-mdd/bin/activate
+```
+
 ### Ansible Collections
 ```
 ansible-galaxy collection install -r collections/requirements.yml
