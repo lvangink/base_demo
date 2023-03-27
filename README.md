@@ -9,6 +9,10 @@ certain envrionment variables to be set.
 ```
 git clone git@github.com:model-driven-devops/mdd-base.git
 ```
+Move to the mdd-base directory.
+```
+cd mdd-base
+```
 
 ## Depedancies
 ### Python 
