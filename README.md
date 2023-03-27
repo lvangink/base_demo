@@ -1,8 +1,21 @@
 # Model-Driven Devops Repo
 
 This is the base repo for Model-Driven devops.  It has the needed python requirements (requirements.txt) and
-Ansible Collection (requirements.yml) to run a Model-Driven Devops pipeline.  It requires an inventory and
-certain envrionment variables to be set.
+Ansible Collection (requirements.yml) to run a Model-Driven Devops pipeline.  It requires an ansible inventory and
+certain envrionment variables to be set. It also assumes you are using Cisco Modeling Labs, GitLab, and NSO. Details on running
+NSO and CML can be found by using the following links.
+
+## NSO
+Installing in Kubernetes
+Installing in CML
+Installing in Docker
+Installing Locally
+
+## CML
+Installing in AWS
+Installing in VMware
+
+## GitLab
 
 # Installation
 ## Clone Repo
@@ -14,11 +27,16 @@ Move to the mdd-base directory.
 cd mdd-base
 ```
 
-## Depedancies
+## Installing Depedancies
 ### Python 
+
+Next, it is highly recommended that you create a virtual environment to make it easier to install the dependencies without conflict:
 ```
 python3 -m venv venv-mdd
 . ./venv-mdd/bin/activate
+```
+Next, install the Python requirements via pip:
+```
 pip3 install -r requirements.txt
 ```
 ### Ansible Collections
