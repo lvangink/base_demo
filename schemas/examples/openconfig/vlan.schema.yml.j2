@@ -1,0 +1,68 @@
+title: OpenConfig vlan interface check
+type: object
+description: >
+	This is a schema that validates specified vlan names, types, and descriptions for the Openconfig
+	data model.
+required:
+  - openconfig-interfaces:interfaces
+properties:
+  openconfig-interfaces:interfaces:
+    type: object
+    required:
+      - openconfig-interfaces:interface
+    properties:
+      openconfig-interfaces:interface:
+        type: array
+        items:
+          type: object
+        allOf:
+{% for vlan in validate_vars.vlans %}        
+          - contains:
+              properties:
+                openconfig-interfaces:name:
+                  type: string
+                  const: {{ vlan.name }}
+                openconfig-interfaces:config:
+                  type: object
+                  properties:
+                    openconfig-interfaces:name:
+                      type: string
+                      const: {{ vlan.name }}
+                    openconfig-interfaces:type:
+                      type: string
+                      const: {{ vlan.type }}
+                    openconfig-interfaces:description:
+                      type: string
+                      enum: {{ vlan.description }}
+                    openconfig-interfaces:enabled:
+                      type: boolean
+                openconfig-vlan:routed-vlan:
+                  type: object
+                  properties:
+                    openconfig-vlan:config:
+                      type: object
+                      properties:
+                        openconfig-vlan:vlan:
+                          type: number
+                    openconfig-if-ip:ipv4:
+                      type: object
+                      properties:
+                        openconfig-if-ip:addresses:
+                          type: object
+                        openconfig-if-ip:config:
+                          type: object
+                          properties:
+                            openconfig-if-ip:dhcp-client:
+                              type: boolean
+                            openconfig-if-ip-mdd-ext:redirects:
+                              type: boolean
+                        openconfig-if-ip:proxy-arp:
+                          type: object
+                          properties:
+                            openconfig-if-ip:config:
+                              type: object
+                              properties:
+                                openconfig-if-ip:mode:
+                                  type: string
+                                  enum: DISABLE
+{% endfor %} 
