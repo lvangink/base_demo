@@ -27,4 +27,9 @@ properties:
               type: string
             secret:
               type: string
-    maxContains: 1
+      required:
+        - name
+        - privilege
+        - secret
+    minContains: 1
+    maxContains: 1 
