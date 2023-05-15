@@ -14,13 +14,3 @@ mdd_schemas:
     file: 'local/domain.schema.yml.j2' 
     validate_vars:
       domain_name: mdd.cisco.com
-  - name: interface
-    file: 'local/interface.schema.yml.j2'
-    validate_vars:
-      interfaces:
-        - interface: Loopback0
-          name: Loopback0
-          ipv4_address: 172.16.255.1
-        - interface: Loopback100
-          name: Loopback100
-          ipv4_address: 10.255.255.11

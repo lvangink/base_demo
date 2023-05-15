@@ -1,8 +1,5 @@
 title: OpenConfig vlan interface check
 type: object
-description: >
-	This is a schema that validates specified vlan names, types, and descriptions for the Openconfig
-	data model.
 required:
   - openconfig-interfaces:interfaces
 properties:
@@ -49,6 +46,32 @@ properties:
                       properties:
                         openconfig-if-ip:addresses:
                           type: object
+                          # properties:
+                          #   openconfig-if-ip:address:
+                          #     type: array
+                          #     contains:
+                          #       type: object
+                          #       properties:
+                          #         openconfig-if-ip:ip:
+                          #           type: string
+                          #           format: ipv4
+                          #         openconfig-if-ip:config:
+                          #           type: object
+                          #           properties:
+                          #             openconfig-if-ip:ip:
+                          #               type: string
+                          #               format: ipv4
+                          #             openconfig-if-ip:prefix-length:
+                          #               type: number
+                          #         openconfig-if-ip-mdd-ext:hsrp:
+                          #           type: object
+                          #           properties:
+                          #             openconfig-if-ip-mdd-ext:hsrp-group:
+                          #               type: array
+                          #               contains:
+                          #                 type: object
+                          #                 properties:
+                          #                   openconfig-if-ip-mdd-ext:group-number:  
                         openconfig-if-ip:config:
                           type: object
                           properties:

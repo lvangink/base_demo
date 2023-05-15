@@ -13,6 +13,37 @@ description: >
   appropriate DoD network (NIPRNet/SIPRNet); United States Naval Observatory (USNO) time servers;
   and/or the Global Positioning System (GPS). The secondary time source must be located in a different
   geographic region than the primary time source.
-required:
-  - openconfig-system:system
 properties:
+  openconfig-system:system:
+    type: object
+    properties:
+      openconfig-system:ntp:
+        type: object
+        properties:
+          openconfig-system:config:
+            type: object
+            properties:
+              openconfig-system:enabled:
+                type: boolean
+              openconfig-system:enable-ntp-auth:
+                type: boolean
+          openconfig-system:ntp-keys:
+            type: object
+            properties:
+              openconfig-system:ntp-key:
+                type: array
+                minItems: 2
+                items:
+                  type: object
+                  properties:
+                    openconfig-system:key-id:
+                      type: integer
+                    openconfig-system:config:
+                      type: object
+                      properties:
+                        openconfig-system:key-id:
+                          type: integer
+                        openconfig-system:key-type:
+                          type: string
+                        openconfig-system:key-value:
+                          type: string
