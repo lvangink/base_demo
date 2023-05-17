@@ -46,11 +46,13 @@ all:
                     - hq_router
                     - bgp
                     - ospf
+                    - router_stig
                 hq-rtr2:
                   tags:
                     - hq_router
                     - bgp
                     - ospf
+                    # - router_stig
                 hq-sw1:
                   tags:
                     - switch
@@ -63,6 +65,7 @@ all:
                 WAN-rtr1:
                   tags:
                     - WAN_router
+                    # - router_stig
             site1:
               hosts:
                 site1-rtr1:

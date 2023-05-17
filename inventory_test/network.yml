@@ -46,6 +46,7 @@ all:
                     - hq_router
                     - bgp
                     - ospf
+                    - router_stig
                 hq-rtr2:
                   tags:
                     - hq_router

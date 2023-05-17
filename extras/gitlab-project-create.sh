@@ -10,9 +10,9 @@ CML_HOST=cpn-rtp-cml-stable1.ciscops.net
 CML_USERNAME=lvangink
 CML_PASSWORD=g9revOPt3q7FVQE_x^[V
 # DEV Lab is the name of your CML Development Lab and Prod Lab is the name of your production Lab.
-TEST_CML_LAB=
-# PROD_CML_LAB=
-# CML_VERIFY_CERT=false
+TEST_CML_LAB=test
+PROD_CML_LAB=prod
+CML_VERIFY_CERT=false
 
 # Clone the GitHub repo and change to mdd directory
 git clone https://github.com/model-driven-devops/mdd-base.git

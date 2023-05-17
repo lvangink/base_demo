@@ -1,0 +1,9 @@
+---
+mdd_tags:
+  - all
+mdd_data:
+  mdd:openconfig:
+    openconfig-system:system:
+      openconfig-system-ext:services:
+        openconfig-system-ext:config:
+          openconfig-system-ext:ip-gratuitous-arps: false

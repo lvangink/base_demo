@@ -103,7 +103,6 @@ mdd_data:
           openconfig-system-ext:service-udp-small-servers: false
           openconfig-system-ext:service-pad: false
           openconfig-system-ext:service-password-encryption: false
-          openconfig-system-ext:ip-gratuitous-arps: true
         openconfig-system-ext:login-security-policy:
           openconfig-system-ext:config:
             openconfig-system-ext:on-success: true
