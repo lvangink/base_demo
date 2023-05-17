@@ -1,5 +1,11 @@
 all:
   vars:
+    nso_default_ned: cisco-ios-cli-6.87
+#############################################################################################################
+## If you are running the ansible playbooks to deploy nso into CML, you can uncomment the lines below.     ##
+## If you already have an instance of NSO running with the OC service installed, you can skip to modifying ##
+## the variables starting with nos_rest_url:                                                               ##
+#############################################################################################################
     mdd_model_repos:
       - name: nso-oc-services
         model_list:
@@ -10,13 +16,18 @@ all:
       - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-nx-5.23.5.signed.bin
       - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-iosxr-7.43.3.signed.bin
       - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-asa-6.16.2.signed.bin
-    nso_default_ned: cisco-ios-cli-6.87
     nso_package_repos:
       - name: mdd
         repo: https://github.com/model-driven-devops/nso-oc-services.git
-        version: v2.34.0
+        version: v2.35.8
         service_list:
           - mdd
+    nso_rest_url: http://192.133.187.175:8080
+    nso_username: ubuntu
+    nso_auth_groups:
+      default:
+        remote_name: ubuntu
+        remote_password: "{{ lookup('env', 'TEST_REMOTE_PASSWORD') | default('admin', true) }}"        
   children:
     nso:
       vars:
@@ -24,4 +35,4 @@ all:
         ansible_password: "{{ lookup('env', 'NSO_PASSWORD') | default('admin', true) }}"
         ansible_python_interpreter: /usr/bin/python3
       hosts:
-        nso1:
+        nso1: 192.133.187.175:8080
