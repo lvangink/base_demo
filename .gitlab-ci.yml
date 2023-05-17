@@ -16,7 +16,7 @@ variables:
 save-rollback:
   stage: save-rollback
   script:
-    - ansible-playbook ciscops.mdd.nso_save_rollback
+    - ansible-playbook -i inventory_test ciscops.mdd.nso_save_rollback 
   resource_group: mdd
   artifacts:
     paths:
