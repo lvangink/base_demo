@@ -3,14 +3,14 @@
 #!/usr/bin/env bash
 
 # Uncomment the following and define proper values (or specify as environment variables)
-# GITLAB_HOST=
-# GITLAB_PROJECT=
-# GITLAB_BRANCH=
-# CML_HOST=
-# CML_USERNAME=
-# CML_PASSWORD=
+GITLAB_HOST=gitlab.aws.ciscops.net
+GITLAB_PROJECT=demo
+GITLAB_BRANCH=main
+CML_HOST=cpn-rtp-cml-stable1.ciscops.net
+CML_USERNAME=lvangink
+CML_PASSWORD=g9revOPt3q7FVQE_x^[V
 # DEV Lab is the name of your CML Development Lab and Prod Lab is the name of your production Lab.
-# DEV_CML_LAB=
+TEST_CML_LAB=
 # PROD_CML_LAB=
 # CML_VERIFY_CERT=false
 
