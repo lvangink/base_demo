@@ -1,61 +1,17 @@
 stages:
-  # - clean
-  # - build-cml
-  # - build-nso
-  # - init-nso
   - save-rollback
   - validate
-  - update-dev
+  - update-test
+  - check-test
   - update-prod
-  - check-dev
   - check-prod
   - load-rollback
 
-image: ghcr.io/model-driven-devops/mdd:1.2.0rc1
+image: ghcr.io/model-driven-devops/mdd:1.2.6rc3
 
 variables:
   ANSIBLE_CONFIG: "./ansible.cfg"
   CML_VERIFY_CERT: "false"
-  NSO_INSTALL: "true"
-  CML_LAB: $DEV_CML_LAB
-
-# clean:
-#   stage: clean
-#   script:
-#     - ansible-playbook cisco.cml.clean
-#   resource_group: mdd
-#   rules:
-#     - if: $CLEAN == "true"
-
-# build-cml:
-#   stage: build-cml
-#   script:
-#     - ansible-playbook cisco.cml.build -e startup='host' -e wait='yes' -e retries=100
-#   resource_group: mdd
-#   rules:
-#     - if: $CLEAN == "true"
-
-# build-nso:
-#   stage: build-nso
-#   script:
-#     - ansible-playbook ciscops.mdd.nso_install
-#     - ansible-playbook ciscops.mdd.nso_update_packages
-#     - ansible-playbook ciscops.mdd.nso_init
-#     - ansible-playbook ciscops.mdd.nso_update_devices
-#   resource_group: mdd
-#   rules:
-#     - if: $CLEAN == "true" && $NSO_INSTALL == "true"
-
-# init-nso:
-#   stage: init-nso
-#   script:
-#     - ansible-playbook ciscops.mdd.nso_init
-#     - ansible-playbook ciscops.mdd.nso_delete_devices
-#     - ansible-playbook ciscops.mdd.nso_update_devices
-#     - ansible-playbook ciscops.mdd.update -e dry_run=no
-#   resource_group: mdd
-#   rules:
-#     - if: $NSO_INIT == "true"
 
 save-rollback:
   stage: save-rollback
@@ -73,76 +29,54 @@ validate:
   stage: validate
   script:
     - yamllint mdd-data
-    - ansible-playbook ciscops.mdd.validate
+    - ansible-playbook -i inventory_prod ciscops.mdd.validate
   resource_group: mdd
   rules:
-    # - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    # - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    # - if: $CI_PIPELINE_SOURCE == "api"
 
-update-dev:
-  stage: update-dev
+
+update-test:
+  stage: update-test
   script:
-    # update devices in case DHCP address changed
-    # - ansible-playbook ciscops.mdd.nso_update_devices
-    - ansible-playbook ciscops.mdd.update -e dry_run=no
+      - ansible-playbook -i inventory_test ciscops.mdd.update -e dry_run=no
   resource_group: mdd
   rules:
-    # - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    # - if: $CI_PIPELINE_SOURCE == "api"
+
+check-test:
+  stage: check-test
+  script:
+    # allow network to converge before running checks
+    - sleep 60
+    - ansible-playbook -i inventory_test ciscops.mdd.check
+  resource_group: mdd
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 update-prod:
   stage: update-prod
   script:
     # update devices in case DHCP address changed
-    # - ansible-playbook ciscops.mdd.nso_update_devices
-    - ansible-playbook ciscops.mdd.update -e dry_run=no
-  variables:
-    CML_LAB: $PROD_CML_LAB
+    - ansible-playbook -i inventory_prod ciscops.mdd.update -e dry_run=no
   resource_group: mdd
   rules:
-    # - if: $CI_PIPELINE_SOURCE == "web"
-    # - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    # - if: $CI_PIPELINE_SOURCE == "api"
-
-check-dev:
-  stage: check-dev
-  script:
-    # allow network to converge before running checks
-    - sleep 60
-    - ansible-playbook ciscops.mdd.check
-  resource_group: mdd
-  rules:
-    # - if: $CI_PIPELINE_SOURCE == "web"
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    # - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    # - if: $CI_PIPELINE_SOURCE == "api"
 
 check-prod:
   stage: check-prod
   script:
     # allow network to converge before running checks
     - sleep 60
-    - ansible-playbook ciscops.mdd.check
-  variables:
-    CML_LAB: $PROD_CML_LAB
+    - ansible-playbook -i inventory_prod ciscops.mdd.check
   resource_group: mdd
   rules:
-    # - if: $CI_PIPELINE_SOURCE == "web"
-    # - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
-    # - if: $CI_PIPELINE_SOURCE == "api"
 
 load-rollback:
   stage: load-rollback
   script:
-    # update devices in case DHCP address changed
-    # - ansible-playbook ciscops.mdd.nso_update_devices
-    - ansible-playbook ciscops.mdd.nso_load_rollback
+    - ansible-playbook -i inventory_test ciscops.mdd.nso_load_rollback
   resource_group: mdd
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

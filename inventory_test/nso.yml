@@ -35,4 +35,4 @@ all:
         ansible_password: "{{ lookup('env', 'NSO_PASSWORD') | default('admin', true) }}"
         ansible_python_interpreter: /usr/bin/python3
       hosts:
-        nso1: 192.133.187.175:8080
+        nso1:
