@@ -6,7 +6,7 @@ certain envrionment variables to be set. It also assumes you are using Cisco Mod
 NSO and CML can be found by using the following links.
 
 
-#Installing Tooling
+# Installing Tooling
 ## NSO
 Installing in Kubernetes  
 Installing in CML  
@@ -103,4 +103,6 @@ The base repository contains two ansible inventory directories. The directory la
         nso1: 
           ansible_host: xx.xx.xx.xx:8080
 ```
+
+Follow the same instructions for the nso.yml file in your inventory_test directory with the information for your test instance of NSO.
 
