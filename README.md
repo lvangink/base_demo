@@ -84,8 +84,23 @@ export CML_LAB=mdd
 export CML_VERIFY_CERT=false
 ```
 
-# Playbooks
-## Update OC
+# Setup Your Inventory
+The base repository contains two ansible inventory directories. The directory labled inventory_prod will contain an nso.yml file that points to the NSO instance managing your production devices. Below is an example of how your nso.yml file should look.
 ```
-ansible-playbook ciscops.mdd.oc_update
+ nso_rest_url: http://xx.xx.xx.xx:8080
+    nso_username: admin
+    nso_auth_groups: default
+      default:
+        remote_name: admin
+        remote_password: "{{ lookup('env', 'PROD_REMOTE_PASSWORD') | default('admin', true) }}"        
+  children:
+    nso:
+      vars:
+        ansible_user: "{{ lookup('env', 'NSO_USERNAME') | default('ubuntu', true) }}"
+        ansible_password: "{{ lookup('env', 'NSO_PASSWORD') | default('admin', true) }}"
+        ansible_python_interpreter: /usr/bin/python3
+      hosts:
+        nso1: 
+          ansible_host: xx.xx.xx.xx:8080
 ```
+
