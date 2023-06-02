@@ -10,23 +10,26 @@ all:
       - name: nso-oc-services
         model_list:
           - mdd
-    nso_installer_file: https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/nso-5.7.7.linux.x86_64.signed.bin
+# Add the URLs to your NSO installer file and NSO NED files. We recommened using an S3 bucket or easily accessible storage.
+    nso_installer_file: 
     nso_ned_files:
-      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-ios-6.87.signed.bin
-      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-nx-5.23.5.signed.bin
-      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-iosxr-7.43.3.signed.bin
-      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/5.7.7/ncs-5.7.7-cisco-asa-6.16.2.signed.bin
+# The current package below has been tested against the reference architeture.
+# You can use the repo link to see the latest version and modify the version variable.
     nso_package_repos:
       - name: mdd
         repo: https://github.com/model-driven-devops/nso-oc-services.git
         version: v2.35.8
         service_list:
           - mdd
-    nso_rest_url: http://192.133.185.149:8080
-    nso_username: ubuntu
+# Input the URL to your production NSO instance below
+    nso_rest_url:
+# Input the username for your production NSO instance below
+    nso_username: 
+# The authgroup defines the username and password NSO uses to connect to devices.
+# Set the device remote_name here. The password will be set as an environment variable.
     nso_auth_groups:
       default:
-        remote_name: ubuntu
+        remote_name: 
         remote_password: "{{ lookup('env', 'PROD_REMOTE_PASSWORD') | default('admin', true) }}"        
   children:
     nso:
