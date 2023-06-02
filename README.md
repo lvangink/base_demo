@@ -62,28 +62,17 @@ deactivate
 ```
 ansible-galaxy collection install -r collections/requirements.yml
 ```
-> Note: If you want to develop a collection, you need to comment out the collection in requirements.yml and clone the collection repo directly, e.g.
-```
-cd ansible_colletions
-mkdir ciscops
-cd ciscops
-git@github.com:model-driven-devops/ansible-mdd.git mdd
-```
 
 ### Environment Variables
-#### Netbox
-```
-export NETBOX_HOST=x.x.x.x
-export NETBOX_API=https://x.x.x.x
-export NETBOX_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
+Set the environment variables listed below:
 
 #### NSO
+The TEST_REMOTE and PROD_REMOTE passwords are used for your device authentication.
 ```
-export NSO_HOST=y.y.y.y
-export NSO_HOST_URL=http://y.y.y.y:8080/jsonrpc
-export NSO_USERNAME=admin
-export NSO_PASSWORD=admin
+export NSO_USERNAME=
+export NSO_PASSWORD=
+export TEST_REMOTE_PASSWORD=
+export PROD_REMOTE_PASSWORD=
 ```
 
 #### CML
