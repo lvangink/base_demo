@@ -141,3 +141,29 @@ If you are harvesting your data from a physical environment, you will need to pr
             site2-sw1:
               ansible_host: 10.0.0.4
   ```
+## Harvesting Data
+Now that our inventories have been created, we need to update our production instance of NSO with our inventory. Start out by adding the default auth group to NSO so it can connect to your devices.
+
+```
+ansible-playbook ciscops.mdd.nso_init -i=inventory_prod
+```
+Now that our auth group has been created, we can have NSO connect to the devices by running the following playbook:
+
+```
+ansible-playbook ciscops.mdd.nso_update_devices -i=inventory_prod
+```
+
+Once the devices from the network.yml file in your inventory_prod directory have been added, we can execute a sync action for NSO to ingest the configurations into its database.
+
+```
+ansible-playbook ciscops.mdd.nso_sync_from -i=inventory_prod
+```
+Next, we will harvest the configurations as structured data in the OpenConfig format. If you would like to harvest the native data, refer to the additional commands section of this guide.
+
+```
+ansible-playbook ciscops.mdd.harvest -i=inventory_prod
+```
+
+You should start to see the configurations being populated under the mdd-data directory matching the heirarchy defined in your network.yml file.
+
+
