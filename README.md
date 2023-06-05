@@ -170,3 +170,9 @@ You should start to see the configurations being populated under the mdd-data di
 
 You will see files parsed as both oc-feature.yml and config-remaining.yml. We are regularly adding supported OpenConfig features to the NSO service. While we continue to add support, you will have your data represented as both OpenConfig and Native.
 
+## Building Your Digital Twin
+If you do not have an existing simulation environment for pipeline testing, our ansible collection includes a playbook that will use CDP and LLDP to map your network and build a simulation that can be used to import into CML. This playbook also builds the interfce mapping table necessary to ensure your simulation matches your production interface naming convention.
+
+```
+ansible-playbook ciscops.mdd.cml_update_lab -i inventory_prod -e start_from=1 -e inventory_dir=inventory_test -e use_cat9kv=yes
+```
