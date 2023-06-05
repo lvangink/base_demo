@@ -58,7 +58,7 @@ export ANSIBLE_COLLECTIONS_PATH=./
 ```
 ### Ansible Collections
 ```
-ansible-galaxy collection install -r collections/requirements.yml
+ansible-galaxy collection install -r requirements.yml
 ```
 
 ### Environment Variables
