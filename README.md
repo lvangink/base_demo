@@ -31,13 +31,6 @@ cd mdd-base
 
 ## Installing Dependancies
 
-### Environmental Variables
-The MDD tooling requires several environment variables. The first one required for base execution is:
-```
-export ANSIBLE_PYTHON_INTERPRETER=${VIRTUAL_ENV}/bin/python
-export ANSIBLE_COLLECTIONS_PATH=./
-```
-
 ### Python 
 Next, it is highly recommended that you create a virtual environment to make it easier to install the dependencies without conflict:
 ```
@@ -57,7 +50,12 @@ deactivate
 ```
 . ./venv-mdd/bin/activate
 ```
-
+### Environmental Variables
+The MDD tooling requires several environment variables. The first one required for base execution is:
+```
+export ANSIBLE_PYTHON_INTERPRETER=${VIRTUAL_ENV}/bin/python
+export ANSIBLE_COLLECTIONS_PATH=./
+```
 ### Ansible Collections
 ```
 ansible-galaxy collection install -r collections/requirements.yml
