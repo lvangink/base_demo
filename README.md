@@ -86,6 +86,8 @@ export CML_VERIFY_CERT=false
 
 # Setup Your Inventory
 The base repository contains two ansible inventory directories. The directory labled inventory_prod will contain an nso.yml file that points to the NSO instance managing your production devices. Below is an example of how your nso.yml file should look.
+
+### inventory_prod/nso.yml
 ```
  nso_rest_url: http://xx.xx.xx.xx:8080
     nso_username: admin
@@ -106,3 +108,38 @@ The base repository contains two ansible inventory directories. The directory la
 
 Follow the same instructions for the nso.yml file in your inventory_test directory with the information for your test instance of NSO.
 
+### inventory_prod/network.yml
+The network.yml file is the key element for your NetDevOps pipeline. It defines your infrastructures heirarchy and design. It also allows you to provide tags to specific devices, giving operators the ability to execute specefic tests or push modular pieces of configuration to a subset of your infrastructure. The base repository provies a sample network.yml inventory file that can be used as a template to build your network. This template is taken from the core MDD repository and maps to the excercises that an be executed against our reference topology.
+
+When implementing MDD in a brownfield environment, we want to harvest the configurations from our poduction network, so it is recommended to start with the network.yml file in your inventory_prod folder.
+
+If you are using this base repository with CML and you do not have a physical environment, you do not need to provide any additional information for each device. The ansible collection takes advantage of the CML API to automatically grab the IP addresses for each device.
+```
+  children:
+    network:
+      children:
+        switches:
+          hosts:
+            hq-sw1:
+            hq-sw2:
+            site1-sw1:
+            site2-sw1:
+```
+
+If you are harvesting your data from a physical environment, you will need to provide IP addresses for each device as depicted in the example below:
+
+```
+  children:
+    network:
+      children:
+        switches:
+          hosts:
+            hq-sw1:
+              ansible_host: 10.0.0.1
+            hq-sw2:
+              ansible_host: 10.0.0.2
+            site1-sw1:
+              ansible_host: 10.0.0.3
+            site2-sw1:
+              ansible_host: 10.0.0.4
+  ```
