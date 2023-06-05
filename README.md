@@ -173,6 +173,29 @@ You will see files parsed as both oc-feature.yml and config-remaining.yml. We ar
 ## Building Your Digital Twin
 If you do not have an existing simulation environment for pipeline testing, our ansible collection includes a playbook that will use CDP and LLDP to map your network and build a simulation that can be used to import into CML. This playbook also builds the interfce mapping table necessary to ensure your simulation matches your production interface naming convention.
 
+Before you run the simulation creation playbook, navigate to your group_vars directory under your inventory_prod directory and you will see a cml.yml file. This file enables the use of the virtual catalyst 9000 switch for features specefic to layer 3 switches. If you require L3 switching, uncomment the following:
+```
+  l3switch:
+    node_definition: Cat9000v
+    image_definition: Cat9000v-24p
+    ram: 18432
+    cpus: 4
+    tags:
+      - l3switch
+    type: l3switch
+```
+If you do not require L3 switching, you can leave the Cat9000v commented out and make sure the following is uncommented:
+```
+    l3switch:
+      node_definition: iosvl2
+      ram: 768
+      tags:
+        - l3switch
+      type: l3switch
+```
+Now we can execute the playbook with the proper Cat9kv flag set:
+
 ```
 ansible-playbook ciscops.mdd.cml_update_lab -i inventory_prod -e start_from=1 -e inventory_dir=inventory_test -e use_cat9kv=yes
 ```
+If you are not using the Cat9kv, you can set use_cat9kv=no
