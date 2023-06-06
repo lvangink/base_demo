@@ -204,3 +204,37 @@ Once the playbook executes, you will have a cml.yml file created under the files
 
 ![Screenshot 2023-06-05 at 5 04 34 PM](https://github.com/lvangink/mdd_base/assets/65776483/15dcf997-6d4b-4c82-bb76-8f3942ec5817)
 
+## Deploy Digitial Twin
+Once you have your cml.yml file in your files directory, you can import it into CML by selecing the Import icon on your main screen:
+
+![Screenshot 2023-06-06 at 12 19 01 PM](https://github.com/lvangink/mdd_base/assets/65776483/c926a695-171f-42a9-b3f6-e5966ebdcc9b)
+
+Note: The CML topology creation requires CDP or LLDP turned on to map the network. 
+
+## Setting up your test environment
+
+In our previous steps, we created our production ansible inventory, populated NSO, and harvest the configurations locally. Now that we have our simulated digital twin in CML, we want to set up our test environment so we can create our pipeline.
+
+### inventory_test/network.yml
+
+If you haven't done so already, copy your production network.yml file into your inventory_test directory. Since we are using CML the host names of the devices will remain the same, but you can remove the IP addresses. If you are not using CML, make sure you update the IP addresses for each device before adding them to your test NSO instance.
+
+Once your inventory is completed, we are going to follow the same steps to add the devices to our test NSO but target the inventory_test directory when running our playbooks.
+
+```
+ansible-playbook ciscops.mdd.nso_init -i=inventory_test
+```
+```
+ansible-playbook ciscops.mdd.nso_update_devices -i=inventory_test
+```
+```
+ansible-playbook ciscops.mdd.nso_sync_from -i=inventory_test
+```
+Now our simulated devices are in NSO, we can push the data we harvested from production into our simulation.
+```
+ansible-playbook ciscops.mdd.update -i=inventory_test
+```
+By default the update playbook sets the dry_run flag to yes. This sends the data to NSO and verifies that NSO is capable of pushing it to the devices. To have NSO actually push the configuration data, you can set the dry_run flag to no using the following command:
+```
+ansible-playbook ciscops.mdd.update -i=inventory_test -e dry_run=no
+```
