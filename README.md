@@ -201,5 +201,6 @@ ansible-playbook ciscops.mdd.cml_update_lab -i inventory_prod -e start_from=1 -e
 If you are not using the Cat9kv, you can set use_cat9kv=no
 
 Once the playbook executes, you will have a cml.yml file created under the files directory and a cml_intf_map.yml file created under your inventory_test directory.
+
 ![Screenshot 2023-06-05 at 5 04 34 PM](https://github.com/lvangink/mdd_base/assets/65776483/15dcf997-6d4b-4c82-bb76-8f3942ec5817)
 
