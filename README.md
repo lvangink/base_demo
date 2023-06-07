@@ -7,13 +7,13 @@ NSO and CML can be found by using the following links.
 
 
 # Installing Tooling
-## NSO
+## Install NSO
 Installing in Kubernetes  
 Installing in CML  
 Installing in Docker  
 Installing Locally  
 
-## CML
+## Install CML
 Installing in AWS  
 Installing in VMware  
 
@@ -49,7 +49,7 @@ git push -u -f origin main
 Note: These instructions and the CI file assume that your git is configured to use "main" as the primary branch. You can configure this to be the default behavior by running `git config --global init.defaultBranch main`
 
 ## Configure Repository
-A commented [sample CI file](.gitlab-ci.yml) has been provided to demonstrate a recommended CI pipeline. Once NSO, CML, and the inventories have been configured and network configs have been harvested, the pipeline in that file can be uncommented to run the pipeline as-is, or modified to suit your needs. 
+A commented [sample CI file](.gitlab-ci.yml) has been provided to demonstrate a recommended CI pipeline. Once [NSO](#nso), [CML](#cml), and the [inventories](#setup-your-inventory) have been configured and network configs have been harvested, the pipeline in that file can be uncommented to run the pipeline as-is, or modified to suit your needs. 
 
 ## Installing Dependencies
 

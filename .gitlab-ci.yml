@@ -1,6 +1,6 @@
 ##########################################################################################################
 ##  This sample CI file provides the recommended CI pipeline for MDD. Uncomment sctions to use them     ##
-##  Ensure that inventory_test and inventory_prod have been configured for your environment              ##
+##  Ensure that inventory_test and inventory_prod have been configured for your environment             ##
 ##  Modify other variables as needed to cusomize the pipeline (image, branch names, etc)                ##                                             
 ##########################################################################################################
 
