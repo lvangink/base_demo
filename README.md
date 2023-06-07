@@ -1,8 +1,8 @@
-# Model-Driven Devops Repo
+# Model-Driven DevOps Repo
 
-This is the base repo for Model-Driven devops.  It has the needed python requirements (requirements.txt) and
-Ansible Collection (requirements.yml) to run a Model-Driven Devops pipeline.  It requires an ansible inventory and
-certain envrionment variables to be set. It also assumes you are using Cisco Modeling Labs, GitLab, and NSO. Details on running
+This is the base repo for Model-Driven DevOps.  It has the needed python requirements (requirements.txt) and
+Ansible Collection (requirements.yml) to run a Model-Driven DevOps pipeline.  It requires an ansible inventory and
+certain environment variables to be set. It also assumes you are using Cisco Modeling Labs, GitLab, and NSO. Details on running
 NSO and CML can be found by using the following links.
 
 
@@ -20,16 +20,38 @@ Installing in VMware
 ## GitLab
 
 # Installation
-## Clone Repo
-```
-git clone git@github.com:model-driven-devops/mdd-base.git
-```
-Move to the mdd-base directory.
-```
-cd mdd-base
-```
+## Clone Repo Template
+To use this template, you can select the "Use this template" option from the GitHub UI if your MDD repo will be created in GitHub. If you intend to use GitLab, you can create a new repo from this template manually.
 
-## Installing Dependancies
+First clone the template locally.
+```
+git clone git@github.com:model-driven-devops/lvangink/mdd-base.git <your-repo-name>
+```
+Move to the new repo.
+```
+cd <your-repo-name>
+```
+Remove the git folder.
+```
+rm -rf .git
+```
+Initialize your new git repo and commit the repo contents.
+```
+git init .
+git add .
+git commit -m "Initialize new repo"
+```
+Create a new repo in your target env using your method of choice and then set that as the repo's remote.
+```
+git remote add origin https://<your-git>/<your-repo>.git
+git push -u -f origin main
+```
+Note: These instructions and the CI file assume that your git is configured to use "main" as the primary branch. You can configure this to be the default behavior by running `git config --global init.defaultBranch main`
+
+## Configure Repository
+A commented [sample CI file](.gitlab-ci.yml) has been provided to demonstrate a recommended CI pipeline. Once NSO, CML, and the inventories have been configured and network configs have been harvested, the pipeline in that file can be uncommented to run the pipeline as-is, or modified to suit your needs. 
+
+## Installing Dependencies
 
 ### Python 
 Next, it is highly recommended that you create a virtual environment to make it easier to install the dependencies without conflict:
@@ -83,7 +105,7 @@ export CML_VERIFY_CERT=false
 ```
 
 # Setup Your Inventory
-The base repository contains two ansible inventory directories. The directory labled inventory_prod will contain an nso.yml file that points to the NSO instance managing your production devices. Below is an example of how your nso.yml file should look.
+The base repository contains two ansible inventory directories. The directory labeled inventory_prod will contain an nso.yml file that points to the NSO instance managing your production devices. Below is an example of how your nso.yml file should look.
 
 ### inventory_prod/nso.yml
 ```
@@ -107,9 +129,9 @@ The base repository contains two ansible inventory directories. The directory la
 Follow the same instructions for the nso.yml file in your inventory_test directory with the information for your test instance of NSO.
 
 ### inventory_prod/network.yml
-The network.yml file is the key element for your NetDevOps pipeline. It defines your infrastructures heirarchy and design. It also allows you to provide tags to specific devices, giving operators the ability to execute specefic tests or push modular pieces of configuration to a subset of your infrastructure. The base repository provies a sample network.yml inventory file that can be used as a template to build your network. This template is taken from the core MDD repository and maps to the excercises that an be executed against our reference topology.
+The network.yml file is the key element for your NetDevOps pipeline. It defines your infrastructures hierarchy and design. It also allows you to provide tags to specific devices, giving operators the ability to execute specific tests or push modular pieces of configuration to a subset of your infrastructure. The base repository provides a sample network.yml inventory file that can be used as a template to build your network. This template is taken from the core MDD repository and maps to the exercises that can be executed against our reference topology.
 
-When implementing MDD in a brownfield environment, we want to harvest the configurations from our poduction network, so it is recommended to start with the network.yml file in your inventory_prod folder.
+When implementing MDD in a brownfield environment, we want to harvest the configurations from our production network, so it is recommended to start with the network.yml file in your inventory_prod folder.
 
 If you are using this base repository with CML and you do not have a physical environment, you do not need to provide any additional information for each device. The ansible collection takes advantage of the CML API to automatically grab the IP addresses for each device.
 ```
@@ -164,16 +186,16 @@ Next, we will harvest the configurations as structured data in the OpenConfig fo
 ansible-playbook ciscops.mdd.harvest -i=inventory_prod
 ```
 
-You should start to see the configurations being populated under the mdd-data directory matching the heirarchy defined in your network.yml file.
+You should start to see the configurations being populated under the mdd-data directory matching the hierarchy defined in your network.yml file.
 
 ![Screenshot 2023-06-05 at 4 37 14 PM](https://github.com/lvangink/mdd_base/assets/65776483/e01fbc26-cf02-49c3-8460-39b03f7f28da)
 
 You will see files parsed as both oc-feature.yml and config-remaining.yml. We are regularly adding supported OpenConfig features to the NSO service. While we continue to add support, you will have your data represented as both OpenConfig and Native.
 
 ## Building Your Digital Twin
-If you do not have an existing simulation environment for pipeline testing, our ansible collection includes a playbook that will use CDP and LLDP to map your network and build a simulation that can be used to import into CML. This playbook also builds the interfce mapping table necessary to ensure your simulation matches your production interface naming convention.
+If you do not have an existing simulation environment for pipeline testing, our ansible collection includes a playbook that will use CDP and LLDP to map your network and build a simulation that can be used to import into CML. This playbook also builds the interface mapping table necessary to ensure your simulation matches your production interface naming convention.
 
-Before you run the simulation creation playbook, navigate to your group_vars directory under your inventory_prod directory and you will see a cml.yml file. This file enables the use of the virtual catalyst 9000 switch for features specefic to layer 3 switches. If you require L3 switching, uncomment the following:
+Before you run the simulation creation playbook, navigate to your group_vars directory under your inventory_prod directory and you will see a cml.yml file. This file enables the use of the virtual catalyst 9000 switch for features specific to layer 3 switches. If you require L3 switching, uncomment the following:
 ```
   l3switch:
     node_definition: Cat9000v
