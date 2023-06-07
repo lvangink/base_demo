@@ -1,83 +1,89 @@
-stages:
-  - save-rollback
-  - validate
-  - update-test
-  - check-test
-  - update-prod
-  - check-prod
-  - load-rollback
+##########################################################################################################
+##  This sample CI file provides the recommended CI pipeline for MDD. Uncomment sctions to use them     ##
+##  Ensure that inventory_test and inventory_prod have been configured for your environment              ##
+##  Modify other variables as needed to cusomize the pipeline (image, branch names, etc)                ##                                             
+##########################################################################################################
 
-image: ghcr.io/model-driven-devops/mdd:1.2.6rc3
+# stages:
+#   - save-rollback
+#   - validate
+#   - update-test
+#   - check-test
+#   - update-prod
+#   - check-prod
+#   - load-rollback
 
-variables:
-  ANSIBLE_CONFIG: "./ansible.cfg"
-  CML_VERIFY_CERT: "false"
+# image: ghcr.io/model-driven-devops/mdd:1.2.6rc3
 
-save-rollback:
-  stage: save-rollback
-  script:
-    - ansible-playbook -i inventory_test ciscops.mdd.nso_save_rollback 
-  resource_group: mdd
-  artifacts:
-    paths:
-      - rollback.yaml
-    expire_in: 1 hour
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+# variables:
+#   ANSIBLE_CONFIG: "./ansible.cfg"
+#   CML_VERIFY_CERT: "false"
 
-validate:
-  stage: validate
-  script:
-    - yamllint mdd-data
-    - ansible-playbook -i inventory_prod ciscops.mdd.validate
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+# save-rollback:
+#   stage: save-rollback
+#   script:
+#     - ansible-playbook -i inventory_test ciscops.mdd.nso_save_rollback 
+#   resource_group: mdd
+#   artifacts:
+#     paths:
+#       - rollback.yaml
+#     expire_in: 1 hour
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# validate:
+#   stage: validate
+#   script:
+#     - yamllint mdd-data
+#     - ansible-playbook -i inventory_prod ciscops.mdd.validate
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 
-update-test:
-  stage: update-test
-  script:
-      - ansible-playbook -i inventory_test ciscops.mdd.update -e dry_run=no
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+# update-test:
+#   stage: update-test
+#   script:
+#       - ansible-playbook -i inventory_test ciscops.mdd.update -e dry_run=no
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
 
-check-test:
-  stage: check-test
-  script:
-    # allow network to converge before running checks
-    - sleep 60
-    - ansible-playbook -i inventory_test ciscops.mdd.check
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+# check-test:
+#   stage: check-test
+#   script:
+#     # allow network to converge before running checks
+#     - sleep 60
+#     - ansible-playbook -i inventory_test ciscops.mdd.check
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
-update-prod:
-  stage: update-prod
-  script:
-    # update devices in case DHCP address changed
-    - ansible-playbook -i inventory_prod ciscops.mdd.update -e dry_run=no
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+# update-prod:
+#   stage: update-prod
+#   script:
+#     # update devices in case DHCP address changed
+#     - ansible-playbook -i inventory_prod ciscops.mdd.update -e dry_run=no
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
 
-check-prod:
-  stage: check-prod
-  script:
-    # allow network to converge before running checks
-    - sleep 60
-    - ansible-playbook -i inventory_prod ciscops.mdd.check
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
+# check-prod:
+#   stage: check-prod
+#   script:
+#     # allow network to converge before running checks
+#     - sleep 60
+#     - ansible-playbook -i inventory_prod ciscops.mdd.check
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"
 
-load-rollback:
-  stage: load-rollback
-  script:
-    - ansible-playbook -i inventory_test ciscops.mdd.nso_load_rollback
-  resource_group: mdd
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  when: always
+# load-rollback:
+#   stage: load-rollback
+#   script:
+#     - ansible-playbook -i inventory_test ciscops.mdd.nso_load_rollback
+#   resource_group: mdd
+#   rules:
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#   when: always
