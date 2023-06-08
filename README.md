@@ -199,3 +199,8 @@ Now we can execute the playbook with the proper Cat9kv flag set:
 ansible-playbook ciscops.mdd.cml_update_lab -i inventory_prod -e start_from=1 -e inventory_dir=inventory_test -e use_cat9kv=yes
 ```
 If you are not using the Cat9kv, you can set use_cat9kv=no
+
+## Creating Your Pipeline
+
+![Screenshot 2023-06-08 at 11 53 39 AM](https://github.com/lvangink/mdd_base/assets/65776483/35acf7e9-b13c-40b5-ad92-562fa067097c)
+
