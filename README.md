@@ -200,6 +200,34 @@ ansible-playbook ciscops.mdd.cml_update_lab -i inventory_prod -e start_from=1 -e
 ```
 If you are not using the Cat9kv, you can set use_cat9kv=no
 
+Once the playbook executes, you will have a cml.yml file created under the files directory and a cml_intf_map.yml file created under your inventory_test directory. You can import the cml.yml file directly into CML. 
+
+Note: Your test instance of NSO does not differentiate between simulated or physical devices. This means the devices in your topology must have IP reachability. This playbook uses the first port of each device as a management port and adds an external connector to pull DHCP addresses.
+
+## Setting Up Your Test Environment
+
+Once your topology is up and running in CML and your devices have IP reachability, we can add them to our test instance of NSO using the same commands in previous steps, but targeting our test inventory. 
+
+```
+ansible-playbook ciscops.mdd.nso_init -i=inventory_test
+```
+```
+ansible-playbook ciscops.mdd.nso_update_devices -i=inventory_test
+```
+```
+ansible-playbook ciscops.mdd.nso_sync_from -i=inventory_test
+```
+Now our simulated devices are added and synced with our test NSO. The next step is to push the configurations we harvested from our production network to the test network.
+
+```
+ansible-playbook ciscops.mdd.update -i=inventory_test
+```
+Note: By default, the update playbook executes a dry run, which means it just sends the data to NSO and verifies whether the data can be pushed to the devices. To have NSO push the configs, you need to set the dry-run flag to "no".
+```
+ansible-playbook ciscops.mdd.update -i=inventory_test -e dry_run=no 
+```
+Once this playbook executes, your digital twin will be configured to match your production network. Now we are ready to create our pipeline.
+
 ## Creating Your Pipeline
 
 ![Screenshot 2023-06-08 at 11 53 39 AM](https://github.com/lvangink/mdd_base/assets/65776483/35acf7e9-b13c-40b5-ad92-562fa067097c)
