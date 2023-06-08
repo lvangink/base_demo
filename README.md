@@ -206,7 +206,13 @@ Note: Your test instance of NSO does not differentiate between simulated or phys
 
 ## Setting Up Your Test Environment
 
-Once your topology is up and running in CML and your devices have IP reachability, we can add them to our test instance of NSO using the same commands in previous steps, but targeting our test inventory. 
+Once your topology is up and running in CML and your devices have IP reachability, we can add them to our test instance of NSO using the same commands in previous steps, but targeting our test inventory.
+
+### inventory_test/network.yml
+
+If you haven't done so already, copy your production network.yml file into your inventory_test directory. Since we are using CML the host names of the devices will remain the same, but you can remove the IP addresses. If you are not using CML, make sure you update the IP addresses for each device before adding them to your test NSO instance.
+
+Once your inventory is completed, we are going to follow the same steps to add the devices to our test NSO but target the inventory_test directory when running our playbooks.
 
 ```
 ansible-playbook ciscops.mdd.nso_init -i=inventory_test
