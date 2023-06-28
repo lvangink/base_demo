@@ -3,16 +3,16 @@
 #!/usr/bin/env bash
 
 # Uncomment the following and define proper values (or specify as environment variables)
-GITLAB_HOST=gitlab.aws.ciscops.net
-GITLAB_PROJECT=demo
-GITLAB_BRANCH=main
-CML_HOST=cpn-rtp-cml-stable1.ciscops.net
-CML_USERNAME=lvangink
-CML_PASSWORD=g9revOPt3q7FVQE_x^[V
+# GITLAB_HOST=
+# GITLAB_PROJECT=
+# GITLAB_BRANCH=
+# CML_HOST=
+# CML_USERNAME=
+# CML_PASSWORD=
 # DEV Lab is the name of your CML Development Lab and Prod Lab is the name of your production Lab.
-TEST_CML_LAB=test
-PROD_CML_LAB=prod
-CML_VERIFY_CERT=false
+# TEST_CML_LAB=test
+# PROD_CML_LAB=prod
+# CML_VERIFY_CERT=false
 
 # Clone the GitHub repo and change to mdd directory
 git clone https://github.com/model-driven-devops/mdd-base.git
