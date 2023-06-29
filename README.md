@@ -256,26 +256,22 @@ Once this playbook executes, your digital twin will be configured to match your 
 
 ## Creating Your Pipeline
 
-Before pushing our newely created source-of-truth to Git, it is important to note that this template has a built in gitlab.ci file. Once we push our files to git, the pipeline will attempt to execute. Below is a visual depiction of the pipeline phases. We recommend understanding the phases before pushing your changes.
+Before pushing our newely created source-of-truth to Git, it is important to note that this template has a built in gitlab.ci file. This file is commented out, allowing you to prevent the pipeline from running once changes to the repository are pushed. Below is a visual depiction of the pipeline phases. We recommend understanding the phases before pushing your changes.
 
 ![Screenshot 2023-06-08 at 11 53 39 AM](https://github.com/lvangink/mdd_base/assets/65776483/35acf7e9-b13c-40b5-ad92-562fa067097c)
 
 ### Pipeline Phases
 
 ### Pushing Your Changes
-In gitlab, create your new repository. Since we cloned this template locally, the first step is to remove github as our source repository. We can do this by executing the following:
-```
-git remote rm origin
-```
-Now we need to add our new repository as the origin.
-```
-git remote add origin https://myproject.com/repo.git
-```
-Now we can commit and push our changes.
+Now we are ready to commit our changes.
 ```
 git add .
-git commit -m "pushing to new repo"
-git push -u -f origin main
+git commit -m "initial source of truth push"
+git push
 ```
+Our initial push is to the main branch. Once the data is pushed, login to your repository and set the main branch as a protected branch. Only changes that get merged into main will get deployed into the production network. Protecting main will prevent any changes being implemented without validation, checks, and approval.
+
+In GitLab, this option can be found under settings, repository.
+![Screenshot 2023-06-29 at 1 04 27 PM](https://github.com/lvangink/mdd_base/assets/65776483/44eee5d2-c727-458f-b4fb-d8b347e8e52f)
 
 
