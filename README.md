@@ -20,13 +20,33 @@ Installing in VMware
 ## GitLab
 
 # Installation
-## Clone Repo
+
+## Clone Repo Template
+
+To use this template, you can select the "Use this template" option from the GitHub UI if your MDD repo will be created in GitHub. If you intend to use GitLab, you can create a new repo from this template manually.
+
+First clone the template locally.
 ```
-git clone git@github.com:model-driven-devops/mdd-base.git
+git clone git@github.com:model-driven-devops/lvangink/mdd-base.git <your-repo-name>
 ```
-Move to the mdd-base directory.
+Move to the new repo locally.
 ```
-cd mdd-base
+cd <your-repo-name>
+```
+Remove the git folder.
+```
+rm -rf .git
+```
+Initialize your new git repo and commit the repo contents.
+```
+git init .
+git add .
+git commit -m "Initialize new repo"
+```
+Create a new repo in your target env using your method of choice and then set that as the repo's remote.
+```
+git remote add origin https://<your-git>/<your-repo>.git
+git push -u -f origin main
 ```
 
 ## Installing Dependancies
