@@ -272,6 +272,6 @@ git push
 Our initial push is to the main branch. Once the data is pushed, login to your repository and set the main branch as a protected branch. Only changes that get merged into main will get deployed into the production network. Protecting main will prevent any changes being implemented without validation, checks, and approval.
 
 In GitLab, this option can be found under settings, repository.
-![Screenshot 2023-06-29 at 1 04 27 PM](https://github.com/lvangink/mdd_base/assets/65776483/44eee5d2-c727-458f-b4fb-d8b347e8e52f)
+
 
 
