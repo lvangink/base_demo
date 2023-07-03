@@ -27,7 +27,7 @@ To use this template, you can select the "Use this template" option from the Git
 
 First clone the template locally.
 ```
-git clone git@github.com:model-driven-devops/lvangink/mdd-base.git <your-repo-name>
+git clone https://github.com/lvangink/mdd_base.git <your-repo-name>
 ```
 Move to the new repo locally.
 ```
