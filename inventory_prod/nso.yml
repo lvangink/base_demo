@@ -1,6 +1,6 @@
 all:
   vars:
-    nso_default_ned: cisco-ios-cli-6.87
+    nso_default_ned: cisco-ios-cli-6.92
 #############################################################################################################
 ## If you are running the ansible playbooks to deploy nso into CML, you can uncomment the lines below.     ##
 ## If you already have an instance of NSO running with the OC service installed, you can skip to modifying ##
@@ -10,9 +10,14 @@ all:
       - name: nso-oc-services
         model_list:
           - mdd
-# Add the URLs to your NSO installer file and NSO NED files. We recommened using an S3 bucket or easily accessible storage.
-    nso_installer_file: 
+# Add the URLs to your NSO installer file and NSO NED files. We recommened using an S3 bucket or easily accessible storage. 
+# The examples below are taken from the MDD reference architecture
+    nso_installer_file: https://colabucket.s3.amazonaws.com/sw/cisco/nso/6.1/nso-6.1.linux.x86_64.signed.bin
     nso_ned_files:
+      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/6.1/ncs-6.1-cisco-ios-6.92.7.signed.bin
+      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/6.1/ncs-6.1-cisco-nx-5.23.13.signed.bin
+      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/6.1/ncs-6.1-cisco-iosxr-7.49.2.signed.bin
+      - https://colabucket.s3.amazonaws.com/sw/cisco/nso/6.1/ncs-6.0.3-cisco-asa-6.18.3.signed.bin
 # The current package below has been tested against the reference architeture.
 # You can use the repo link to see the latest version and modify the version variable.
     nso_package_repos:
