@@ -1,3 +1,4 @@
+cml_lab_file: "{{ lookup('env', 'PWD') }}/files/prod.yaml"
 cml_device_template:
   switch:
     node_definition: iosvl2
